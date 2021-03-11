@@ -5,10 +5,13 @@ import App from './App';
 import { Provider } from 'react-redux';
 import configureStore from './store';
 
+import * as searchResultsActions from './store/searchResults';
+
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
   window.store = store;
+  window.searchResultsActions = searchResultsActions;
 }
 
 function Root() {
