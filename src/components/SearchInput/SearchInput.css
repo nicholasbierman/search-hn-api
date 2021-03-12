@@ -1,0 +1,8 @@
+.SearchInput {
+    background-color: rgb(24, 26, 27);
+    color: rgba(232, 230, 227, 0.75);
+    height: 42px;
+    padding: 16px 144px 16px 54px;
+    font-weight: 300;
+    width: 100%;
+}

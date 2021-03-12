@@ -1,0 +1,16 @@
+.SearchHeader {
+    background-color: rgb(178, 61, 0);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 4px;
+    position: relative;
+    justify-content: center;
+}
+
+.SearchHeader__container {
+    width: calc(100% - 240px);
+    position: relative;
+    display: inline-block;
+    
+}
