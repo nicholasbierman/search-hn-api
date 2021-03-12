@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import searchResults from './searchResults';
 import searchTerms from './searchTerms';
+import currentSearchTerms from './currentSearch';
 
 const rootReducer = combineReducers({
     searchResults,
-    searchTerms
+    searchTerms,
+    currentSearchTerms
 });
 
 let enhancer;
