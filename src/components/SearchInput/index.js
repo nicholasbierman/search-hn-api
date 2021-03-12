@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import './SearchInput.css';
 import { useDispatch } from 'react-redux';
 import { getSearchResults, clearSearch } from '../../store/searchResults';
+import { storeUserInput } from '../../store/searchTerms';
 
 export const SearchInput = () => {
   const dispatch = useDispatch();
   const [ searchTerms, setSearchTerms ] = useState("")
   
   useEffect(() => {
-    console.log(searchTerms);
     dispatch(clearSearch());
     dispatch(getSearchResults(searchTerms));
   }, [dispatch, searchTerms])
@@ -19,7 +19,8 @@ export const SearchInput = () => {
       type="search"
       placeholder="Search stories by title, url, or author"
       value={searchTerms}
-      onChange={(e) => setSearchTerms(e.target.value)}></input>
+      onChange={(e) => setSearchTerms(e.target.value)}
+      onBlur={(e) => dispatch(storeUserInput(e.target.value))}></input>
   );
 };
 
