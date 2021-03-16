@@ -1,0 +1,25 @@
+.Story, .Story_container {
+    display: flex;
+    align-items: center;
+}
+
+.Story {
+    font-size: 14px;
+    padding: 0 16px;
+    flex-wrap: wrap;
+    min-height: 40px;
+}
+
+.Story_title {
+    width: 100%;
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.Story_meta {
+    color: rgb(166, 158, 146);
+}
+
+.Story_data {
+    margin: 4px 0;
+}
