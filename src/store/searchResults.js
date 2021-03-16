@@ -29,6 +29,14 @@ export const getSearchResultsByDate = (searchTerms) => async (dispatch) => {
     dispatch(storeSearchResults(data.hits));
 }
 
+export const getItemById = (id) => async (dispatch) => {
+    const response = await fetch(`http://hn.algolia.com/api/v1/items/${id}`);
+    const data = await response.json();
+    console.log(data);
+    dispatch(storeSearchResults(data))
+
+}
+
 
 /* Clear search terms from store */
 export const clearSearch = () => async (dispatch) => {

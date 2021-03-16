@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import searchResults from './searchResults';
 import searchTerms from './searchTerms';
 import currentSearchTerms from './currentSearch';
+import searchFilters from './searchFilters';
 
 const rootReducer = combineReducers({
     searchResults,
     searchTerms,
-    currentSearchTerms
+    currentSearchTerms,
+    searchFilters
 });
 
 let enhancer;

@@ -1,6 +1,11 @@
-
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSearchFilters } from '../../store/searchFilters';
 
 export const SearchFilters = () => {
+    const dispatch = useDispatch();
+
+
     return (
         <div className="SearchFilters container">
             <div class="SearchFilters_filters">
@@ -18,7 +23,7 @@ export const SearchFilters = () => {
                 <label>for</label>
                 <select>
                     <option value="alltime">All Time</option>
-                    <option value="24">Last 24h</option>
+                    <option value="day">Last 24h</option>
                     <option value="week">Past Week</option>
                     <option value="month">Past Month</option>
                     <option value="year">Past Year</option>
