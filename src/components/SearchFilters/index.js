@@ -16,7 +16,7 @@ export const SearchFilters = () => {
 
     return (
         <div className="SearchFilters container">
-            <div class="SearchFilters_filters">
+            <div className="SearchFilters_filters">
                 <label>Search</label>
                 <select>
                     <option value="all">All</option>
