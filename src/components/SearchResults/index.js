@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Story } from '../Story';
 
 export const SearchResults = () => {
-    const searchResults = useSelector(state => state.searchResults);
+    const searchResults = useSelector(state => state.searchResults.hits);
     return (
         <section className="SearchResults">
             <div className="SearchResults__container">

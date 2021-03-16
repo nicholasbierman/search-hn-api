@@ -17,7 +17,8 @@ export const getSearchResults = (searchTerms) => async (dispatch) => {
         `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
     );
     const data = await response.json();
-    dispatch(storeSearchResults(data.hits));
+    console.log(data);
+    dispatch(storeSearchResults(data));
 };
 
 /* Sorted by date, most recent first */
@@ -48,10 +49,13 @@ export const clearSearch = () => async (dispatch) => {
     dispatch(clearSearchResults())
 }
 
-function reducer (state = [], action) {
+function reducer (state = {hits: [], nbPages: 1}, action) {
     switch (action.type) {
         case SET_SEARCH_RESULTS:
-            return [ ...state, ...action.payload ];
+            let newState = { ...state };
+            newState.hits = action.payload.hits;
+            newState.nbPages = action.payload.nbPages;
+            return newState;
         case CLEAR_SEARCH_RESULTS:
             return [];
         default:
