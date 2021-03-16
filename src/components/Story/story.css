@@ -18,8 +18,14 @@
 
 .Story_meta {
     color: rgb(166, 158, 146);
+    display: flex;
+    font-size: 11px;
 }
 
 .Story_data {
     margin: 4px 0;
+}
+
+.Story_meta span {
+    margin-right: 4px;
 }
