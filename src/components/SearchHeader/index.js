@@ -1,5 +1,4 @@
 import SearchInput from "../SearchInput";
-import SearchFilters from "../SearchFilters";
 import "./SearchHeader.css";
 
 export const SearchHeader = () => {

@@ -49,15 +49,16 @@ export const clearSearch = () => async (dispatch) => {
     dispatch(clearSearchResults())
 }
 
-function reducer (state = {hits: [], nbPages: 1}, action) {
+function reducer (state = {hits: [], nbPages: 1, page: 0}, action) {
     switch (action.type) {
         case SET_SEARCH_RESULTS:
             let newState = { ...state };
             newState.hits = action.payload.hits;
             newState.nbPages = action.payload.nbPages;
+            newState.page = action.payload.page;
             return newState;
         case CLEAR_SEARCH_RESULTS:
-            return [];
+            return state;
         default:
             return state;
     }

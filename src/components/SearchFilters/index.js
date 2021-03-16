@@ -1,10 +1,18 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setSearchFilters } from '../../store/searchFilters';
+import { useEffect } from "react";
+import { useSelector } from 'react-redux';
 
 export const SearchFilters = () => {
-    const dispatch = useDispatch();
-
+    const nbPages = useSelector(state => state.searchResults.nbPages);
+    const convertNbPagesToArray = (nbPages) => {
+        let pagesArray = [];
+        for (let i = 0; i <= nbPages; i++) {
+            pagesArray.push(i);
+        }
+        return pagesArray;
+    }
+    useEffect(() => {
+        return convertNbPagesToArray(nbPages);
+    }, [nbPages])
 
     return (
         <div className="SearchFilters container">
@@ -27,6 +35,11 @@ export const SearchFilters = () => {
                     <option value="week">Past Week</option>
                     <option value="month">Past Month</option>
                     <option value="year">Past Year</option>
+                </select>
+                <select>
+                    {nbPages && convertNbPagesToArray(nbPages).map((page, i) => {
+                        return <option key={i}>{page}</option>
+                    })}
                 </select>
             </div>
         </div>
