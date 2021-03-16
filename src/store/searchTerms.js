@@ -13,6 +13,11 @@ export const storeUserInput = (searchTerms) => async (dispatch) => {
 function reducer (state = [], action) {
     switch (action.type) {
         case STORE_SEARCH_TERMS:
+            if (action.payload.length === 1) {
+                let newState = [...state]
+                newState.push(action.payload);
+                return newState;
+            }
             return [ ...state, ...action.payload ]
         default:
             return state;

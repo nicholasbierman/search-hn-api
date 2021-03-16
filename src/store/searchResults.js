@@ -33,8 +33,13 @@ export const getItemById = (id) => async (dispatch) => {
     const response = await fetch(`http://hn.algolia.com/api/v1/items/${id}`);
     const data = await response.json();
     console.log(data);
-    dispatch(storeSearchResults(data))
+    dispatch(storeSearchResults(data));
+};
 
+export const getUserByUsername = (username) => async (dispatch) => {
+    const response = await fetch(`http://hn.algolia.com/api/v1/users/${username}`);
+    const data = await response.json();
+    dispatch(storeSearchResults(data))
 }
 
 
