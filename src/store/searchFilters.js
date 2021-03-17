@@ -9,10 +9,13 @@ export const setSearchFilters = (filters) => async (dispatch) => {
     dispatch(storeSearchFilters(filters));
 };
 
-function reducer (state = { tags: "all", orderBy: "popularity", timeRange: "alltime" }, action) {
+function reducer (state = { tags: [] }, action) {
     switch (action.type) {
         case SET_SEARCH_FILTERS:
-            return { ...state, ...action.payload }
+            let newState = { ...state };
+            newState.tags = state.tags;
+            newState.tags.push(action.payload);
+            return newState;
         default:
             return state;
     }

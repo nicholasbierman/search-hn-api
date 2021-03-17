@@ -8,6 +8,7 @@ import configureStore from './store';
 import * as searchResultsActions from './store/searchResults';
 import * as searchTermActions from './store/searchTerms';
 import * as currentSearchActions from './store/currentSearch';
+import * as filters from './store/searchFilters';
 
 const store = configureStore();
 
@@ -16,6 +17,7 @@ if (process.env.NODE_ENV !== "production") {
   window.searchResultsActions = searchResultsActions;
   window.searchTermActions = searchTermActions;
   window.currentSearchActions = currentSearchActions;
+  window.filters = filters;
 }
 
 function Root() {

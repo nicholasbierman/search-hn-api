@@ -18,10 +18,15 @@ export const SearchFilters = () => {
         <div className="SearchFilters container">
             <div className="SearchFilters_filters">
                 <label>Search</label>
-                <select>
+                <select multiple>
                     <option value="all">All</option>
-                    <option value="stories">Stories</option>
-                    <option value="comments">Comments</option>
+                    <option value="story">Stories</option>
+                    <option value="comment">Comments</option>
+                    <option value="poll">Poll</option>
+                    <option value="pollopt">PollOpt</option>
+                    <option value="show_hn">Show HN</option>
+                    <option value="ask_hn">Ask HN</option>
+                    <option value="front_page">Front Page</option>
                 </select>
                 <label>By</label>
                 <select>

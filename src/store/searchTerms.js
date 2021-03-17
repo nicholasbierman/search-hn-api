@@ -18,7 +18,7 @@ function reducer (state = [], action) {
                 newState.push(action.payload);
                 return newState;
             }
-            return [ ...state, ...action.payload ]
+            return [...state, ...action.payload]
         default:
             return state;
     }
