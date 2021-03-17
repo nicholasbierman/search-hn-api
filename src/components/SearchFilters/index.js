@@ -1,8 +1,11 @@
 import { useEffect } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addSearchFilter, removeSearchFilter } from '../../store/searchFilters';
 
 export const SearchFilters = () => {
+    const dispatch = useDispatch();
     const nbPages = useSelector(state => state.searchResults.nbPages);
+    const tags = useSelector(state => state.searchFilters.tags);
     const convertNbPagesToArray = (nbPages) => {
         let pagesArray = [];
         for (let i = 0; i <= nbPages; i++) {
@@ -18,7 +21,7 @@ export const SearchFilters = () => {
         <div className="SearchFilters container">
             <div className="SearchFilters_filters">
                 <label>Search</label>
-                <select multiple>
+                <select multiple onChange={(e) => tags.includes(e.target.value) ? dispatch(removeSearchFilter(e.target.value)) : dispatch(addSearchFilter(e.target.value))}>
                     <option value="all">All</option>
                     <option value="story">Stories</option>
                     <option value="comment">Comments</option>
