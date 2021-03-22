@@ -25,10 +25,6 @@ export const SearchFilters = () => {
     return convertNbPagesToArray(nbPages);
   }, [nbPages]);
   useEffect(() => {
-    console.log("DAY", Date.now() - 86400);
-    console.log("WEEK", Date.now() - 604800);
-    console.log("MONTH", Date.now() - 2629743);
-    console.log("YEAR", Date.now() - 31556926);
     dispatch(setCreatedAt(Date.now() - dateRange));
   }, [dateRange, dispatch]);
 
