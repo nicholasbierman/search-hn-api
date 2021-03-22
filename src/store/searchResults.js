@@ -12,13 +12,19 @@ const clearSearchResults = () => ({
 
 
 /* Sorted by relevance, then points, then number of comments */
-export const getSearchResults = (searchTerms) => async (dispatch) => {
-    const response = await fetch(
-        `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
-    );
-    const data = await response.json();
-    console.log(data);
-    dispatch(storeSearchResults(data));
+export const getSearchResults = (searchTerms, tags) => async (dispatch) => {
+    if (!tags) {
+        const response = await fetch(
+            `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
+        );
+        const data = await response.json();
+        dispatch(storeSearchResults(data));
+    } else {
+        const commaSeparatedTags = tags.join(",");
+        const response = await fetch(`http://hn.algolia.com/api/v1/search?query=${searchTerms}&tags=(${commaSeparatedTags})`);
+        const data = await response.json();
+            dispatch(storeSearchResults(data));
+     }
 };
 
 /* Sorted by date, most recent first */
@@ -27,7 +33,7 @@ export const getSearchResultsByDate = (searchTerms) => async (dispatch) => {
       `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}`
     );
     const data = await response.json();
-    dispatch(storeSearchResults(data.hits));
+    dispatch(storeSearchResults(data));
 }
 
 export const getItemById = (id) => async (dispatch) => {
