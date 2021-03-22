@@ -47,7 +47,7 @@ export const addStoryId = (storyID) => async (dispatch) => {
 
 export const removeStoryId = () => async (dispatch) => {
     dispatch(deleteStoryId());
-}
+};
 
 export const removeAuthor = () => async (dispatch) => {
     dispatch(deleteAuthorUsername());

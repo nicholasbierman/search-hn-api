@@ -4,12 +4,14 @@ import searchResults from './searchResults';
 import searchTerms from './searchTerms';
 import currentSearchTerms from './currentSearch';
 import searchFilters from './searchFilters';
+import numericFilters from './numericFilters';
 
 const rootReducer = combineReducers({
     searchResults,
     searchTerms,
     currentSearchTerms,
-    searchFilters
+    searchFilters,
+    numericFilters
 });
 
 let enhancer;
