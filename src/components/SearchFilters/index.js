@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { addSearchFilter, removeSearchFilter } from '../../store/searchFilters';
+import { getSearchResults, getSearchResultsByDate } from "../../store/searchResults";
 
 export const SearchFilters = () => {
     const dispatch = useDispatch();
     const nbPages = useSelector(state => state.searchResults.nbPages);
     const tags = useSelector(state => state.searchFilters.tags);
+    const currentSearchTerms = useSelector(state => state.currentSearchTerms);
     const convertNbPagesToArray = (nbPages) => {
         let pagesArray = [];
         for (let i = 0; i <= nbPages; i++) {
@@ -22,7 +24,6 @@ export const SearchFilters = () => {
             <div className="SearchFilters_filters">
                 <label>Search</label>
                 <select multiple onChange={(e) => tags.includes(e.target.value) ? dispatch(removeSearchFilter(e.target.value)) : dispatch(addSearchFilter(e.target.value))}>
-                    <option value="all">All</option>
                     <option value="story">Stories</option>
                     <option value="comment">Comments</option>
                     <option value="poll">Poll</option>
@@ -32,7 +33,7 @@ export const SearchFilters = () => {
                     <option value="front_page">Front Page</option>
                 </select>
                 <label>By</label>
-                <select>
+                <select onChange={(e) => e.target.value === "date" ? dispatch(getSearchResultsByDate(currentSearchTerms)) : dispatch(getSearchResults(currentSearchTerms))}>
                     <option value="popularity">Popularity</option>
                     <option value="date">Date</option>
                 </select>

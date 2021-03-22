@@ -15,7 +15,7 @@ function reducer (state = [], action) {
         case STORE_SEARCH_TERMS:
             if (action.payload.length === 1) {
                 let newState = [...state]
-                newState.push(action.payload);
+                newState.push(...action.payload);
                 return newState;
             }
             return [...state, ...action.payload]
