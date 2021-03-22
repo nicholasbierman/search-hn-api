@@ -8,6 +8,7 @@ export const SearchFilters = () => {
     const nbPages = useSelector(state => state.searchResults.nbPages);
     const tags = useSelector(state => state.searchFilters.tags);
     const currentSearchTerms = useSelector(state => state.currentSearchTerms);
+    
     const convertNbPagesToArray = (nbPages) => {
         let pagesArray = [];
         for (let i = 0; i <= nbPages; i++) {
@@ -17,7 +18,7 @@ export const SearchFilters = () => {
     }
     useEffect(() => {
         return convertNbPagesToArray(nbPages);
-    }, [nbPages])
+    }, [ nbPages ]);
 
     return (
         <div className="SearchFilters container">
@@ -33,7 +34,7 @@ export const SearchFilters = () => {
                     <option value="front_page">Front Page</option>
                 </select>
                 <label>By</label>
-                <select onChange={(e) => e.target.value === "date" ? dispatch(getSearchResultsByDate(currentSearchTerms)) : dispatch(getSearchResults(currentSearchTerms))}>
+                <select onChange={(e) => e.target.value === "date" ? dispatch(getSearchResultsByDate(currentSearchTerms, tags)) : dispatch(getSearchResults(currentSearchTerms, tags))}>
                     <option value="popularity">Popularity</option>
                     <option value="date">Date</option>
                 </select>
@@ -45,11 +46,12 @@ export const SearchFilters = () => {
                     <option value="month">Past Month</option>
                     <option value="year">Past Year</option>
                 </select>
-                <select>
+                
+                {/* <select>
                     {nbPages && convertNbPagesToArray(nbPages).map((page, i) => {
                         return <option key={i}>{page}</option>
                     })}
-                </select>
+                </select> */}
             </div>
         </div>
     );
