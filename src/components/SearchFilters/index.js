@@ -10,6 +10,7 @@ import {
   setNumPoints,
   setNumComments,
 } from "../../store/numericFilters";
+import { addAuthorUsername, addStoryId } from "../../store/searchFilters";
 
 export const SearchFilters = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,11 @@ export const SearchFilters = () => {
         <label>Number of Comments</label>
         <input onChange={(e) => dispatch(setNumComments(e.target.value))} type="text" placeholder="<, <=, =, > or >="></input>
         <br />
+        <label>Specify an Author Username</label>
+        <input onChange={(e) => dispatch(addAuthorUsername(e.target.value))} type="text" placeholder="pg"></input>
+        <br />
+        <label>Specify a Story ID</label>
+        <input onChange={(e) => dispatch(addStoryId(e.target.value))}></input>
         
         <select>
           {nbPages &&
