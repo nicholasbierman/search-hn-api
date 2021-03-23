@@ -5,7 +5,11 @@ import {
   getSearchResults,
   getSearchResultsByDate,
 } from "../../store/searchResults";
-import { setCreatedAt } from "../../store/numericFilters";
+import {
+  setCreatedAt,
+  setNumPoints,
+  setNumComments,
+} from "../../store/numericFilters";
 
 export const SearchFilters = () => {
   const dispatch = useDispatch();
@@ -65,6 +69,11 @@ export const SearchFilters = () => {
           <option value="2629743">Past Month</option>
           <option value="31556926">Past Year</option>
         </select>
+        <input
+          onChange={(e) => dispatch(setNumPoints(e.target.value))}
+          type="text"
+          placeholder="Number of Points"></input>
+        <input onChange={(e) => dispatch(setNumComments(e.target.value))} type="text" placeholder="Number of Comments"></input>
 
         <select>
           {nbPages &&
