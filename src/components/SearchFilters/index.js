@@ -69,12 +69,17 @@ export const SearchFilters = () => {
           <option value="2629743">Past Month</option>
           <option value="31556926">Past Year</option>
         </select>
+        <br />
+        <label>Number of Points</label>
         <input
           onChange={(e) => dispatch(setNumPoints(e.target.value))}
           type="text"
-          placeholder="Number of Points"></input>
-        <input onChange={(e) => dispatch(setNumComments(e.target.value))} type="text" placeholder="Number of Comments"></input>
-
+          placeholder="<, <=, =, > or >="></input>
+        <br />
+        <label>Number of Comments</label>
+        <input onChange={(e) => dispatch(setNumComments(e.target.value))} type="text" placeholder="<, <=, =, > or >="></input>
+        <br />
+        
         <select>
           {nbPages &&
             convertNbPagesToArray(nbPages).map((page, i) => {
