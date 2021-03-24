@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import './SearchInput.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getSearchResults, clearSearch } from '../../store/searchResults';
 import { storeUserInput } from '../../store/searchTerms';
 import { setCurrentSearchTerms } from '../../store/currentSearch';
 
 export const SearchInput = () => {
   const dispatch = useDispatch();
-  const [ searchTerms, setSearchTerms ] = useState("")
+  const [ searchTerms, setSearchTerms ] = useState("");
+  const searchFilters = useSelector(state => state.searchFilters);
   
   useEffect(() => {
+    console.log(searchFilters);
     dispatch(clearSearch());
-    dispatch(getSearchResults(searchTerms));
-  }, [dispatch, searchTerms])
+    dispatch(getSearchResults(searchTerms, searchFilters.tags));
+  }, [dispatch, searchTerms, searchFilters])
   
   return (
     <input
