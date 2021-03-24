@@ -12,10 +12,10 @@ const clearSearchResults = () => ({
 
 
 /* Sorted by relevance, then points, then number of comments */
-export const getSearchResults = (searchTerms, tags) => async (dispatch) => {
+export const getSearchResults = (searchTerms, tags, numericFilters, page) => async (dispatch) => {
     if (!tags) {
         const response = await fetch(
-            `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
+            `http://hn.algolia.com/api/v1/search?query=${searchTerms}&numericFilters=&page=`
         );
         const data = await response.json();
         dispatch(storeSearchResults(data));
