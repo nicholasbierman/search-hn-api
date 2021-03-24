@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Story } from '../Story';
+import './searchResults.css';
 
 export const SearchResults = () => {
     const searchResults = useSelector(state => state.searchResults.hits);

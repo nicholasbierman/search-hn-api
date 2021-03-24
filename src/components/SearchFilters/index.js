@@ -34,7 +34,7 @@ export const SearchFilters = () => {
   }, [dateRange, dispatch]);
 
   return (
-    <div className="SearchFilters container">
+    <div className="SearchFilters__container">
       <div className="SearchFilters_filters">
         <label>Search</label>
         <select

@@ -10,9 +10,9 @@ export const Story = ({ title, url, points, author, num_comments }) => {
             {url && <a href={url}>({url})</a>}
           </div>
           <div className="Story_meta">
-                      <span>{points} points |</span>
-                      <span>{author} |</span>
-                      <span>{num_comments} comments</span>
+            <span>{points} points |</span>
+            <span>{author} |</span>
+            <span>{num_comments} comments</span>
           </div>
         </div>
       </div>
