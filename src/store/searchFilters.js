@@ -66,7 +66,7 @@ export const removeSearchFilter = (filter) => async (dispatch) => {
     dispatch(deleteSearchFilter(filter));
 };
 
-function reducer (state = { tags: [], author: "", storyID: "", searchType: "", }, action) {
+function reducer (state = { tags: [], author: null, storyID: "", searchType: "", }, action) {
     let newState;
     switch (action.type) {
         case SET_STORY_ID:
