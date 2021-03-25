@@ -98,7 +98,8 @@ export const SearchFilters = () => {
         <br />
         <label>Specify a Story ID</label>
         <input placeholder="16582136" onChange={(e) => dispatch(addStoryId(e.target.value))}></input>
-
+        <br />
+        <label>Page Number</label>
         <select onChange={handlePageChange}>
           {nbPages &&
             convertNbPagesToArray(nbPages).map((page, i) => {
