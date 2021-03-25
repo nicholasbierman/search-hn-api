@@ -62,7 +62,12 @@ export const generateNumericFiltersUrl = (
     }
   }
   if (points) {
-    pointsString = `points${points}`;
+    const signs = [ "<", "<=", "=", ">", ">=" ];
+    if (!signs.includes(points[ 0 ])) {
+      pointsString = `points=${points}`;
+    } else {
+      pointsString = `points${points}`;
+    }
     if (url === "numericFilters=") {
       url = url.concat(pointsString);
     } else {
@@ -100,9 +105,6 @@ export const getSearchResults = (
   console.log(numericFiltersUrl);
   console.log(tagsUrl);
   const response = await fetch(
-    `http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}&${numericFiltersUrl}&page=${page}`
-  );
-  console.log(
     `http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}&${numericFiltersUrl}&page=${page}`
   );
   const data = await response.json();
