@@ -25,9 +25,14 @@ export const SearchFilters = () => {
 
   useEffect(() => {
     return convertNbPagesToArray(nbPages);
-  }, [nbPages]);
+  }, [ nbPages ]);
+  
   useEffect(() => {
-    dispatch(setCreatedAt(Date.now() - dateRange));
+    if (dateRange === "1616788800") {
+      dispatch(setCreatedAt(dateRange));
+    } else {
+      dispatch(setCreatedAt(Date.now() - dateRange));
+    };
   }, [dateRange, dispatch]);
 
   return (
@@ -59,7 +64,7 @@ export const SearchFilters = () => {
           <option value="date">Date</option>
         </select>
         <label>for</label>
-        <select onChange={(e) => setDateRange(e.target.value)}>
+        <select value={dateRange} onChange={(e) => setDateRange(e.target.value)}>
           <option value="1616788800">All Time</option>
           <option value="86400">Last 24h</option>
           <option value="604800">Past Week</option>

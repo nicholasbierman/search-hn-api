@@ -38,6 +38,36 @@ const generateTagsUrl = (tags, author, storyID) => {
     return url;
 };
 
+export const generateNumericFiltersUrl = (created_at_i, points, num_comments) => {
+    let url = 'numericFilters=';
+    let createdAtString, pointsString, commentString;
+    if (created_at_i) {
+        createdAtString = `created_at_i>=${created_at_i}`;
+        if (url === 'numericFilters=') {
+            url = url.concat(createdAtString);
+        } else {
+            url = url.concat(',', createdAtString);
+        };
+    };
+    if (points) {
+        pointsString = `points${points}`;
+        if (url === 'numericFilters=') {
+            url = url.concat(pointsString);
+        } else {
+            url = url.concat(',', pointsString);
+        };
+    };
+    if (num_comments) {
+        commentString = `num_comments${num_comments}`;
+        if (url === 'numericFilters=') {
+            url = url.concat(commentString);
+        } else {
+            url = url.concat(',', commentString);
+        };
+    };
+    return url;
+}
+
 /* Sorted by relevance, then points, then number of comments */
 export const getSearchResults = (
   searchTerms,
@@ -47,25 +77,6 @@ export const getSearchResults = (
   numericFilters,
   page
 ) => async (dispatch) => {
-//     let tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[ 0 ];
-//     console.log(tagString);
-//     if (author && tagString && storyID) {
-//         tagString = tagString.concat(',author_', author, ',story_', storyID);
-//         console.log("NEW TAGSTRING", tagString);
-//     }
-//   if (!tagString) {
-//     const response = await fetch(
-//       `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
-//     );
-//     const data = await response.json();
-//     dispatch(storeSearchResults(data));
-//   } else {
-//     const response = await fetch(
-//       `http://hn.algolia.com/api/v1/search?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
-//     );
-//     const data = await response.json();
-//     dispatch(storeSearchResults(data));
-//   }
     let tagsUrl = generateTagsUrl(tags, author, storyID);
     console.log(tagsUrl);
     const response = await fetch(`http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}`);
