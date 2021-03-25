@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addSearchFilter, removeSearchFilter } from "../../store/searchFilters";
 import {
@@ -13,7 +13,6 @@ export const SearchFilters = () => {
   const dispatch = useDispatch();
   const nbPages = useSelector((state) => state.searchResults.nbPages);
   const tags = useSelector((state) => state.searchFilters.tags);
-  const [dateRange, setDateRange] = useState(0);
 
   const convertNbPagesToArray = (nbPages) => {
     let pagesArray = [];
@@ -29,7 +28,6 @@ export const SearchFilters = () => {
     let unixToday = today.getTime();
     let previousUnix = previous.getTime();
     let greaterThanOrEqualTo = unixToday - previousUnix;
-    console.log(new Date(greaterThanOrEqualTo));
     return dispatch(setCreatedAt(greaterThanOrEqualTo / 1000))
   }
 
@@ -37,28 +35,6 @@ export const SearchFilters = () => {
     return convertNbPagesToArray(nbPages);
   }, [ nbPages ]);
   
-  // useEffect(() => {
-  //   /* JavaScript Date obj is in miliseconds */
-  //   /* created_at_i is in seconds */
-  //   /* so, we must do dateRange * 1000 */
-  //   let date = new Date(dateRange * 1000);
-  //   let today = new Date();
-  //   let todaySeconds = today.getTime() / 1000;
-  //   let ms = date.getTime();
-  //   let seconds = ms / 1000;
-  //   let diff = todaySeconds - seconds;
-  //   console.log("DATE RANGE", dateRange);
-  //   console.log("TODAY SECONDS", todaySeconds);
-  //   console.log("TODAY", today);
-  //   console.log("MS", ms);
-  //   console.log("SECONDS", seconds);
-  //   console.log("DIFF", diff);
-  //   if (dateRange === "0") {
-  //     dispatch(setCreatedAt(">=0"));
-  //   } else {
-  //     dispatch(setCreatedAt(dateRange));
-  //   };
-  // }, [dateRange, dispatch]);
 
   return (
     <div className="SearchFilters__container">
