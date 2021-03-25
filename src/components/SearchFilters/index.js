@@ -8,6 +8,7 @@ import {
 } from "../../store/numericFilters";
 import { addAuthorUsername, addStoryId } from "../../store/searchFilters";
 import { changeSearchType } from "../../store/searchFilters";
+import { addPageNumber } from '../../store/searchResults';
 
 export const SearchFilters = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,11 @@ export const SearchFilters = () => {
     let unixToday = today.getTime();
     let previousUnix = previous.getTime();
     let greaterThanOrEqualTo = unixToday - previousUnix;
-    return dispatch(setCreatedAt(greaterThanOrEqualTo / 1000))
+    return dispatch(setCreatedAt(greaterThanOrEqualTo / 1000));
+  };
+
+  const handlePageChange = (e) => {
+    dispatch(addPageNumber(parseInt(e.target.value)));
   }
 
   useEffect(() => {
@@ -94,10 +99,10 @@ export const SearchFilters = () => {
         <label>Specify a Story ID</label>
         <input placeholder="16582136" onChange={(e) => dispatch(addStoryId(e.target.value))}></input>
 
-        <select>
+        <select onChange={handlePageChange}>
           {nbPages &&
             convertNbPagesToArray(nbPages).map((page, i) => {
-              return <option key={i}>{page}</option>;
+              return <option value={page} key={i}>{page}</option>;
             })}
         </select>
       </div>

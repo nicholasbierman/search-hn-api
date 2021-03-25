@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./SearchInput.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResults, getSearchResultsByDate, generateNumericFiltersUrl } from "../../store/searchResults";
@@ -11,16 +11,16 @@ export const SearchInput = () => {
   const { tags, author, storyID, searchType } = searchFilters;
   const numericFilters = useSelector(state => state.numericFilters);
   const { created_at_i, points, num_comments } = numericFilters;
+  const page = useSelector(state => state.searchResults.page);
   
   const handleChange = (e) => {
     setSearchTerms(e.target.value);
   };
 
   const handleClick = () => {
-    console.log("NUMERIC FILTERS FRAGMENT", generateNumericFiltersUrl(created_at_i, points, num_comments));
     dispatch(storeUserInput(searchTerms));
     if (searchType === "date") {
-      dispatch(getSearchResultsByDate(searchTerms, tags, author, storyID, created_at_i, points, num_comments));
+      dispatch(getSearchResultsByDate(searchTerms, tags, author, storyID, created_at_i, points, num_comments, page));
     };
     dispatch(
       getSearchResults(
@@ -30,7 +30,8 @@ export const SearchInput = () => {
         storyID,
         created_at_i,
         points,
-        num_comments
+        num_comments,
+        page
       )
     );
   };
