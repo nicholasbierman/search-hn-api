@@ -52,9 +52,7 @@ export const generateNumericFiltersUrl = (
   let url = "numericFilters=";
   let createdAtString, pointsString, commentString;
   if (created_at_i) {
-    console.log("generateNumericFiltersUrl", created_at_i);
     createdAtString = `created_at_i>${created_at_i}`;
-    console.log("CREATED STRING", createdAtString);
     if (url === "numericFilters=") {
       url = url.concat(createdAtString);
     } else {
@@ -89,7 +87,6 @@ export const getSearchResultsOnLoad = () => async(dispatch) => {
   const response = await fetch(`http://hn.algolia.com/api/v1/search?`);
   const data = await response.json();
   dispatch(storeSearchResults(data));
-
 }
 
 /* Sorted by relevance, then points, then number of comments */
@@ -109,8 +106,6 @@ export const getSearchResults = (
     num_comments
   );
   let tagsUrl = generateTagsUrl(tags, author, storyID);
-  console.log(numericFiltersUrl);
-  console.log(tagsUrl);
   const response = await fetch(
     `http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}&${numericFiltersUrl}&page=${page}`
   );
@@ -126,7 +121,6 @@ export const getSearchResultsByDate = (
   storyID
 ) => async (dispatch) => {
   let tagsUrl = generateTagsUrl(tags, author, storyID);
-  console.log(tagsUrl);
   const response = await fetch(
     `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}&${tagsUrl}`
   );
@@ -137,7 +131,6 @@ export const getSearchResultsByDate = (
 export const getItemById = (id) => async (dispatch) => {
   const response = await fetch(`http://hn.algolia.com/api/v1/items/${id}`);
   const data = await response.json();
-  console.log(data);
   dispatch(storeSearchResults(data));
 };
 
