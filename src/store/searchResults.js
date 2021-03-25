@@ -12,12 +12,19 @@ const clearSearchResults = () => ({
 
 /* Sorted by relevance, then points, then number of comments */
 export const getSearchResults = (searchTerms,tags,numericFilters,page) => async (dispatch) => {
-  const tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[0];
-  const response = await fetch(
-    `http://hn.algolia.com/api/v1/search?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
-  );
-  const data = await response.json();
-  dispatch(storeSearchResults(data));
+    const tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[ 0 ];
+    console.log(tagString);
+    if (!tagString) {
+        const response = await fetch(`http://hn.algolia.com/api/v1/search?query=${searchTerms}`);
+        const data = await response.json();
+        dispatch(storeSearchResults(data));
+    } else {
+        const response = await fetch(
+          `http://hn.algolia.com/api/v1/search?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
+        );
+        const data = await response.json();
+        dispatch(storeSearchResults(data));
+    };
 };
 
 /* Sorted by date, most recent first */

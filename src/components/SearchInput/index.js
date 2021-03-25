@@ -7,7 +7,7 @@ import { storeUserInput } from "../../store/searchTerms";
 export const SearchInput = () => {
   const dispatch = useDispatch();
   const [searchTerms, setSearchTerms] = useState("");
-  const searchFilters = useSelector((state) => state.searchFilters);
+  const { tags, searchType } = useSelector((state) => state.searchFilters);
   
   const handleChange = (e) => {
     setSearchTerms(e.target.value);
@@ -15,9 +15,9 @@ export const SearchInput = () => {
 
   const handleClick = () => {
     dispatch(storeUserInput(searchTerms));
-    if (searchFilters.searchType === "date") {
-      dispatch(getSearchResultsByDate(searchTerms, searchFilters.tags));
-    } else dispatch(getSearchResults(searchTerms, searchFilters.tags));
+    if (searchType === "date") {
+      dispatch(getSearchResultsByDate(searchTerms, tags));
+    } else dispatch(getSearchResults(searchTerms, tags));
   };
 
   return (
