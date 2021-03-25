@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./SearchInput.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchResults, getSearchResultsByDate, generateSearchFilters } from "../../store/searchResults";
+import { getSearchResults, getSearchResultsByDate } from "../../store/searchResults";
 import { storeUserInput } from "../../store/searchTerms";
 
 export const SearchInput = () => {
@@ -16,7 +16,6 @@ export const SearchInput = () => {
   };
 
   const handleClick = () => {
-    console.log(generateSearchFilters(tags, author, storyID))
     dispatch(storeUserInput(searchTerms));
     if (searchType === "date") {
       dispatch(getSearchResultsByDate(searchTerms, tags, author, storyID));

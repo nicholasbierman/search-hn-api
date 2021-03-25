@@ -10,14 +10,12 @@ const clearSearchResults = () => ({
   type: CLEAR_SEARCH_RESULTS,
 });
 
-export const generateSearchFilters = (tags, author, storyID) => {
-    let url = 'tags='
+const generateTagsUrl = (tags, author, storyID) => {
+    let url = 'tags=';
     let tagString;
     let authorString;
     let storyIdString;
     if (tags.length !== 0) {
-        console.log("ENTERING TYPEOF TAGS !== UNDEFINED");
-        console.log("TYPEOF TAGS", typeof tags); // object
         tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[ 0 ];
         url = url.concat(tagString);
     };
@@ -38,7 +36,7 @@ export const generateSearchFilters = (tags, author, storyID) => {
         };
     };
     return url;
-}
+};
 
 /* Sorted by relevance, then points, then number of comments */
 export const getSearchResults = (
@@ -49,49 +47,43 @@ export const getSearchResults = (
   numericFilters,
   page
 ) => async (dispatch) => {
-    let tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[ 0 ];
-    console.log(tagString);
-    if (author && tagString && storyID) {
-        tagString = tagString.concat(',author_', author, ',story_', storyID);
-        console.log("NEW TAGSTRING", tagString);
-    }
-  if (!tagString) {
-    const response = await fetch(
-      `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
-    );
+//     let tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[ 0 ];
+//     console.log(tagString);
+//     if (author && tagString && storyID) {
+//         tagString = tagString.concat(',author_', author, ',story_', storyID);
+//         console.log("NEW TAGSTRING", tagString);
+//     }
+//   if (!tagString) {
+//     const response = await fetch(
+//       `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
+//     );
+//     const data = await response.json();
+//     dispatch(storeSearchResults(data));
+//   } else {
+//     const response = await fetch(
+//       `http://hn.algolia.com/api/v1/search?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
+//     );
+//     const data = await response.json();
+//     dispatch(storeSearchResults(data));
+//   }
+    let tagsUrl = generateTagsUrl(tags, author, storyID);
+    console.log(tagsUrl);
+    const response = await fetch(`http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}`);
     const data = await response.json();
     dispatch(storeSearchResults(data));
-  } else {
-    const response = await fetch(
-      `http://hn.algolia.com/api/v1/search?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
-    );
-    const data = await response.json();
-    dispatch(storeSearchResults(data));
-  }
 };
 
 /* Sorted by date, most recent first */
-export const getSearchResultsByDate = (searchTerms, tags, author) => async (
+export const getSearchResultsByDate = (searchTerms, tags, author, storyID) => async (
   dispatch
 ) => {
-  let tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[0];
-  if (author && tagString) {
-    tagString = tagString.concat(",author_", author);
-    console.log("NEW TAGSTRING", tagString);
-  }
-  if (!tagString) {
-    const response = await fetch(
-      `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}`
-    );
-    const data = await response.json();
-    dispatch(storeSearchResults(data));
-  } else {
-    const response = await fetch(
-      `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
-    );
-    const data = await response.json();
-    dispatch(storeSearchResults(data));
-  }
+  let tagsUrl = generateTagsUrl(tags, author, storyID);
+  console.log(tagsUrl);
+  const response = await fetch(
+    `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}&${tagsUrl}`
+  );
+  const data = await response.json();
+  dispatch(storeSearchResults(data));
 };
 
 export const getItemById = (id) => async (dispatch) => {
