@@ -22,7 +22,7 @@ export const SearchFilters = () => {
     }
     return pagesArray;
   };
-  
+
   useEffect(() => {
     return convertNbPagesToArray(nbPages);
   }, [nbPages]);
@@ -86,7 +86,7 @@ export const SearchFilters = () => {
           placeholder="pg"></input>
         <br />
         <label>Specify a Story ID</label>
-        <input onChange={(e) => dispatch(addStoryId(e.target.value))}></input>
+        <input placeholder="16582136" onChange={(e) => dispatch(addStoryId(e.target.value))}></input>
 
         <select>
           {nbPages &&

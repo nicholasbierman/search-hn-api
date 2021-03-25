@@ -10,18 +10,49 @@ const clearSearchResults = () => ({
   type: CLEAR_SEARCH_RESULTS,
 });
 
+export const generateSearchFilters = (tags, author, storyID) => {
+    let url = 'tags='
+    let tagString;
+    let authorString;
+    let storyIdString;
+    if (tags.length !== 0) {
+        console.log("ENTERING TYPEOF TAGS !== UNDEFINED");
+        console.log("TYPEOF TAGS", typeof tags); // object
+        tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[ 0 ];
+        url = url.concat(tagString);
+    };
+    if (author) {
+        authorString = `author_${author}`;
+        if (url === "tags=") {
+            url = url.concat(authorString);
+        } else {
+            url = url.concat(',', authorString);
+        }
+    };
+    if (storyID) {
+        storyIdString = `story_${storyID}`;
+        if (url === "tags=") {
+            url = url.concat(storyIdString);
+        } else {
+            url = url.concat(',', storyIdString);
+        };
+    };
+    return url;
+}
+
 /* Sorted by relevance, then points, then number of comments */
 export const getSearchResults = (
   searchTerms,
   tags,
-  author,
+    author,
+  storyID,
   numericFilters,
   page
 ) => async (dispatch) => {
     let tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[ 0 ];
     console.log(tagString);
-    if (author && tagString) {
-        tagString = tagString.concat(',author_', author);
+    if (author && tagString && storyID) {
+        tagString = tagString.concat(',author_', author, ',story_', storyID);
         console.log("NEW TAGSTRING", tagString);
     }
   if (!tagString) {
@@ -40,19 +71,23 @@ export const getSearchResults = (
 };
 
 /* Sorted by date, most recent first */
-export const getSearchResultsByDate = (searchTerms, tags) => async (
+export const getSearchResultsByDate = (searchTerms, tags, author) => async (
   dispatch
 ) => {
-  const tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[0];
+  let tagString = tags.length > 1 ? `(${tags.join(",")})` : tags[0];
+  if (author && tagString) {
+    tagString = tagString.concat(",author_", author);
+    console.log("NEW TAGSTRING", tagString);
+  }
   if (!tagString) {
     const response = await fetch(
-      `http://hn.algolia.com/api/v1/search?query=${searchTerms}`
+      `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}`
     );
     const data = await response.json();
     dispatch(storeSearchResults(data));
   } else {
     const response = await fetch(
-      `http://hn.algolia.com/api/v1/search?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
+      `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}&tags=${tagString}&numericFilters=&page=`
     );
     const data = await response.json();
     dispatch(storeSearchResults(data));
