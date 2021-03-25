@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
     searchTerms,
     currentSearchTerms,
     searchFilters,
-    numericFilters
+    numericFilters,
 });
 
 let enhancer;

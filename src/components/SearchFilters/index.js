@@ -11,6 +11,7 @@ import {
   setNumComments,
 } from "../../store/numericFilters";
 import { addAuthorUsername, addStoryId } from "../../store/searchFilters";
+import { changeSearchType } from "../../store/searchFilters";
 
 export const SearchFilters = () => {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ export const SearchFilters = () => {
         <label>Search</label>
         <select
           multiple
+          value={tags}
           onChange={(e) =>
             tags.includes(e.target.value)
               ? dispatch(removeSearchFilter(e.target.value))
@@ -55,9 +57,7 @@ export const SearchFilters = () => {
         <label>By</label>
         <select
           onChange={(e) =>
-            e.target.value === "date"
-              ? dispatch(getSearchResultsByDate(currentSearchTerms, tags))
-              : dispatch(getSearchResults(currentSearchTerms, tags))
+            dispatch(changeSearchType(e.target.value))
           }>
           <option value="popularity">Popularity</option>
           <option value="date">Date</option>
@@ -78,14 +78,20 @@ export const SearchFilters = () => {
           placeholder="<, <=, =, > or >="></input>
         <br />
         <label>Number of Comments</label>
-        <input onChange={(e) => dispatch(setNumComments(e.target.value))} type="text" placeholder="<, <=, =, > or >="></input>
+        <input
+          onChange={(e) => dispatch(setNumComments(e.target.value))}
+          type="text"
+          placeholder="<, <=, =, > or >="></input>
         <br />
         <label>Specify an Author Username</label>
-        <input onChange={(e) => dispatch(addAuthorUsername(e.target.value))} type="text" placeholder="pg"></input>
+        <input
+          onChange={(e) => dispatch(addAuthorUsername(e.target.value))}
+          type="text"
+          placeholder="pg"></input>
         <br />
         <label>Specify a Story ID</label>
         <input onChange={(e) => dispatch(addStoryId(e.target.value))}></input>
-        
+
         <select>
           {nbPages &&
             convertNbPagesToArray(nbPages).map((page, i) => {

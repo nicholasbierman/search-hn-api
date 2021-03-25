@@ -15,10 +15,13 @@ export const SearchInput = () => {
   //   dispatch(clearSearch());
   //   dispatch(getSearchResults(searchTerms, searchFilters.tags));
   // }, [ dispatch, searchTerms, searchFilters ]);
+  
   const handleClick = () => {
     dispatch(storeUserInput(searchTerms));
     dispatch(getSearchResults(searchTerms, searchFilters.tags));
   };
+
+
 
   return (
     <div className="SearchInput__container">

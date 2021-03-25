@@ -4,6 +4,12 @@ const SET_AUTHOR_USERNAME = 'searchFilters/setAuthorUsername';
 const REMOVE_AUTHOR_USERNAME = 'searchFilters/removeAuthorUsername';
 const SET_STORY_ID = 'searchFilters/setStoryID';
 const DELETE_STORY_ID = 'searchFilters/deleteStoryID';
+const SET_SEARCH_TYPE = "searchType/setSearchType";
+
+const setSearchType = (type) => ({
+  type: SET_SEARCH_TYPE,
+  payload: type,
+});
 
 const storeSearchFilters = (filters) => ({
     type: SET_SEARCH_FILTERS,
@@ -31,7 +37,10 @@ const setStoryId = (storyID) => ({
 
 const deleteStoryId = () => ({
     type: DELETE_STORY_ID,
-})
+});
+
+export const changeSearchType = (type) => (dispatch) =>
+  dispatch(setSearchType(type));
 
 export const addSearchFilter = (filter) => async (dispatch) => {
     dispatch(storeSearchFilters(filter));
@@ -57,7 +66,7 @@ export const removeSearchFilter = (filter) => async (dispatch) => {
     dispatch(deleteSearchFilter(filter));
 };
 
-function reducer (state = { tags: [], author: "", storyID: "" }, action) {
+function reducer (state = { tags: [], author: "", storyID: "", searchType: "", }, action) {
     let newState;
     switch (action.type) {
         case SET_STORY_ID:
@@ -86,6 +95,10 @@ function reducer (state = { tags: [], author: "", storyID: "" }, action) {
             newState.tags = state.tags;
             let indexToRemove = newState.tags.indexOf(action.payload);
             newState.tags.splice(indexToRemove, 1);
+            return newState;
+        case SET_SEARCH_TYPE:
+            newState = { ...state };
+            newState.searchType = action.payload;
             return newState;
         default:
             return state;
