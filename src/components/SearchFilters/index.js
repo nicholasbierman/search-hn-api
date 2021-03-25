@@ -29,11 +29,8 @@ export const SearchFilters = () => {
     let unixToday = today.getTime();
     let previousUnix = previous.getTime();
     let greaterThanOrEqualTo = unixToday - previousUnix;
-    console.log("HERE", greaterThanOrEqualTo);
-    dispatch(setCreatedAt(greaterThanOrEqualTo))
-    console.log("UNIX TODAY", unixToday);
-    console.log("TODAY", today);
-    console.log("PREVIOUS", previous);
+    console.log(new Date(greaterThanOrEqualTo));
+    return dispatch(setCreatedAt(greaterThanOrEqualTo / 1000))
   }
 
   useEffect(() => {
@@ -92,7 +89,7 @@ export const SearchFilters = () => {
           <option value="date">Date</option>
         </select>
         <label>for</label>
-        <select value={dateRange} onChange={handleDateRangeChange}>
+        <select defaultValue={0} onChange={handleDateRangeChange}>
           <option value={0}>All Time</option>
           <option value={86400}>Last 24h</option>
           <option value={604800}>Past Week</option>

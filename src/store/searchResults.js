@@ -43,7 +43,8 @@ export const generateNumericFiltersUrl = (created_at_i, points, num_comments) =>
     let createdAtString, pointsString, commentString;
     if (created_at_i) {
         console.log("generateNumericFiltersUrl", created_at_i);
-        createdAtString = `created_at_i${created_at_i}`;
+      createdAtString = `created_at_i>${created_at_i}`;
+      console.log("CREATED STRING", createdAtString);
         if (url === 'numericFilters=') {
             url = url.concat(createdAtString);
         } else {
