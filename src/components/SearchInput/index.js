@@ -1,29 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./SearchInput.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchResults, clearSearch, getSearchResultsByDate } from "../../store/searchResults";
+import { getSearchResults, getSearchResultsByDate } from "../../store/searchResults";
 import { storeUserInput } from "../../store/searchTerms";
-import { setCurrentSearchTerms } from "../../store/currentSearch";
 
 export const SearchInput = () => {
   const dispatch = useDispatch();
   const [searchTerms, setSearchTerms] = useState("");
   const searchFilters = useSelector((state) => state.searchFilters);
-
-  // useEffect(() => {
-  //   console.log(searchFilters);
-  //   dispatch(clearSearch());
-  //   dispatch(getSearchResults(searchTerms, searchFilters.tags));
-  // }, [ dispatch, searchTerms, searchFilters ]);
   
+  const handleChange = (e) => {
+    setSearchTerms(e.target.value);
+  };
+
   const handleClick = () => {
     dispatch(storeUserInput(searchTerms));
     if (searchFilters.searchType === "date") {
       dispatch(getSearchResultsByDate(searchTerms, searchFilters.tags));
     } else dispatch(getSearchResults(searchTerms, searchFilters.tags));
   };
-
-
 
   return (
     <div className="SearchInput__container">
@@ -32,7 +27,7 @@ export const SearchInput = () => {
         type="search"
         placeholder="Search stories by title, url, or author"
         value={searchTerms}
-        onChange={(e) => setSearchTerms(e.target.value)}
+        onChange={handleChange}
         ></input>
       <button onClick={handleClick}>Search</button>
     </div>

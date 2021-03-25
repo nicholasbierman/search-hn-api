@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addSearchFilter, removeSearchFilter } from "../../store/searchFilters";
 import {
-  getSearchResults,
-  getSearchResultsByDate,
-} from "../../store/searchResults";
-import {
   setCreatedAt,
   setNumPoints,
   setNumComments,
@@ -17,7 +13,6 @@ export const SearchFilters = () => {
   const dispatch = useDispatch();
   const nbPages = useSelector((state) => state.searchResults.nbPages);
   const tags = useSelector((state) => state.searchFilters.tags);
-  const currentSearchTerms = useSelector((state) => state.currentSearchTerms);
   const [dateRange, setDateRange] = useState("");
 
   const convertNbPagesToArray = (nbPages) => {
@@ -27,6 +22,7 @@ export const SearchFilters = () => {
     }
     return pagesArray;
   };
+  
   useEffect(() => {
     return convertNbPagesToArray(nbPages);
   }, [nbPages]);
