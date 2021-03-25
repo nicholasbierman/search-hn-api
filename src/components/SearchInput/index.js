@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./SearchInput.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getSearchResults, getSearchResultsByDate } from "../../store/searchResults";
+import { getSearchResults, getSearchResultsByDate, getSearchResultsOnLoad } from "../../store/searchResults";
 import { storeUserInput } from "../../store/searchTerms";
 
 export const SearchInput = () => {
@@ -12,6 +12,10 @@ export const SearchInput = () => {
   const numericFilters = useSelector(state => state.numericFilters);
   const { created_at_i, points, num_comments } = numericFilters;
   const page = useSelector(state => state.searchResults.page);
+
+  useEffect(() => {
+    dispatch(getSearchResultsOnLoad());
+  });
   
   const handleChange = (e) => {
     setSearchTerms(e.target.value);

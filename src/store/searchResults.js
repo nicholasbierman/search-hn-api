@@ -85,6 +85,13 @@ export const generateNumericFiltersUrl = (
   return url;
 };
 
+export const getSearchResultsOnLoad = () => async(dispatch) => {
+  const response = await fetch(`http://hn.algolia.com/api/v1/search?`);
+  const data = await response.json();
+  dispatch(storeSearchResults(data));
+
+}
+
 /* Sorted by relevance, then points, then number of comments */
 export const getSearchResults = (
   searchTerms,
