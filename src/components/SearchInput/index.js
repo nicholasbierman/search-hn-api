@@ -20,9 +20,19 @@ export const SearchInput = () => {
     console.log("NUMERIC FILTERS FRAGMENT", generateNumericFiltersUrl(created_at_i, points, num_comments));
     dispatch(storeUserInput(searchTerms));
     if (searchType === "date") {
-      dispatch(getSearchResultsByDate(searchTerms, tags, author, storyID));
+      dispatch(getSearchResultsByDate(searchTerms, tags, author, storyID, created_at_i, points, num_comments));
     };
-    dispatch(getSearchResults(searchTerms, tags, author, storyID));
+    dispatch(
+      getSearchResults(
+        searchTerms,
+        tags,
+        author,
+        storyID,
+        created_at_i,
+        points,
+        num_comments
+      )
+    );
   };
 
   return (

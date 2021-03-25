@@ -13,7 +13,7 @@ export const SearchFilters = () => {
   const dispatch = useDispatch();
   const nbPages = useSelector((state) => state.searchResults.nbPages);
   const tags = useSelector((state) => state.searchFilters.tags);
-  const [dateRange, setDateRange] = useState("");
+  const [dateRange, setDateRange] = useState(0);
 
   const convertNbPagesToArray = (nbPages) => {
     let pagesArray = [];
@@ -23,17 +23,45 @@ export const SearchFilters = () => {
     return pagesArray;
   };
 
+  const handleDateRangeChange = (e) => {
+    let today = new Date();
+    let previous = new Date(e.target.value * 1000);
+    let unixToday = today.getTime();
+    let previousUnix = previous.getTime();
+    let greaterThanOrEqualTo = unixToday - previousUnix;
+    console.log("HERE", greaterThanOrEqualTo);
+    dispatch(setCreatedAt(greaterThanOrEqualTo))
+    console.log("UNIX TODAY", unixToday);
+    console.log("TODAY", today);
+    console.log("PREVIOUS", previous);
+  }
+
   useEffect(() => {
     return convertNbPagesToArray(nbPages);
   }, [ nbPages ]);
   
-  useEffect(() => {
-    if (dateRange === "1616788800") {
-      dispatch(setCreatedAt(dateRange));
-    } else {
-      dispatch(setCreatedAt(Date.now() - dateRange));
-    };
-  }, [dateRange, dispatch]);
+  // useEffect(() => {
+  //   /* JavaScript Date obj is in miliseconds */
+  //   /* created_at_i is in seconds */
+  //   /* so, we must do dateRange * 1000 */
+  //   let date = new Date(dateRange * 1000);
+  //   let today = new Date();
+  //   let todaySeconds = today.getTime() / 1000;
+  //   let ms = date.getTime();
+  //   let seconds = ms / 1000;
+  //   let diff = todaySeconds - seconds;
+  //   console.log("DATE RANGE", dateRange);
+  //   console.log("TODAY SECONDS", todaySeconds);
+  //   console.log("TODAY", today);
+  //   console.log("MS", ms);
+  //   console.log("SECONDS", seconds);
+  //   console.log("DIFF", diff);
+  //   if (dateRange === "0") {
+  //     dispatch(setCreatedAt(">=0"));
+  //   } else {
+  //     dispatch(setCreatedAt(dateRange));
+  //   };
+  // }, [dateRange, dispatch]);
 
   return (
     <div className="SearchFilters__container">
@@ -64,12 +92,12 @@ export const SearchFilters = () => {
           <option value="date">Date</option>
         </select>
         <label>for</label>
-        <select value={dateRange} onChange={(e) => setDateRange(e.target.value)}>
-          <option value="1616788800">All Time</option>
-          <option value="86400">Last 24h</option>
-          <option value="604800">Past Week</option>
-          <option value="2629743">Past Month</option>
-          <option value="31556926">Past Year</option>
+        <select value={dateRange} onChange={handleDateRangeChange}>
+          <option value={0}>All Time</option>
+          <option value={86400}>Last 24h</option>
+          <option value={604800}>Past Week</option>
+          <option value={2629743}>Past Month</option>
+          <option value={31556926}>Past Year</option>
         </select>
         <br />
         <label>Number of Points</label>

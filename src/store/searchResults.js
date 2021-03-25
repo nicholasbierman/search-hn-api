@@ -42,7 +42,8 @@ export const generateNumericFiltersUrl = (created_at_i, points, num_comments) =>
     let url = 'numericFilters=';
     let createdAtString, pointsString, commentString;
     if (created_at_i) {
-        createdAtString = `created_at_i>=${created_at_i}`;
+        console.log("generateNumericFiltersUrl", created_at_i);
+        createdAtString = `created_at_i${created_at_i}`;
         if (url === 'numericFilters=') {
             url = url.concat(createdAtString);
         } else {
@@ -74,12 +75,19 @@ export const getSearchResults = (
   tags,
     author,
   storyID,
-  numericFilters,
+    created_at_i,
+    points,
+  num_comments,
   page
 ) => async (dispatch) => {
+    let numericFiltersUrl = generateNumericFiltersUrl(created_at_i, points, num_comments)
     let tagsUrl = generateTagsUrl(tags, author, storyID);
+    console.log(numericFiltersUrl);
     console.log(tagsUrl);
-    const response = await fetch(`http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}`);
+    const response = await fetch(`http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}&${numericFiltersUrl}`);
+    console.log(
+      `http://hn.algolia.com/api/v1/search?query=${searchTerms}&${tagsUrl}&${numericFiltersUrl}`
+    );
     const data = await response.json();
     dispatch(storeSearchResults(data));
 };

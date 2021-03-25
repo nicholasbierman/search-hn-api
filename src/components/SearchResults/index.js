@@ -4,6 +4,7 @@ import './SearchResults.css';
 
 export const SearchResults = () => {
     const searchResults = useSelector(state => state.searchResults.hits);
+    
     return (
         <section className="SearchResults">
             <div className="SearchResults__container">

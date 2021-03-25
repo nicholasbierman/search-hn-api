@@ -33,7 +33,7 @@ export const setNumComments = (numComments) => async (dispatch) => {
 
 
 
-function reducer (state = { created_at_i: "", points: "", num_comments: "" }, action) {
+function reducer (state = { created_at_i: null, points: "", num_comments: "" }, action) {
     let newState;
     switch (action.type) {
         case SET_CREATED_AT:
