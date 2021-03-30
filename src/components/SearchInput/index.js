@@ -13,6 +13,7 @@ export const SearchInput = () => {
   const { created_at_i, points, num_comments } = numericFilters;
   const page = useSelector(state => state.searchResults.page);
 
+
   
   const handleChange = (e) => {
     setSearchTerms(e.target.value);
