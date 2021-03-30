@@ -5,3 +5,7 @@
 .SearchFilters__filters {
     background-color: rgb(42, 42, 24);
 }
+
+label {
+    color: white;
+}

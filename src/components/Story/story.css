@@ -1,6 +1,7 @@
 .Story, .Story_container {
     display: flex;
     align-items: center;
+    color: white;
 }
 
 .Story {
@@ -29,3 +30,4 @@
 .Story_meta span {
     margin-right: 4px;
 }
+
