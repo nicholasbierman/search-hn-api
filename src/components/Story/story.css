@@ -31,3 +31,8 @@
     margin-right: 4px;
 }
 
+a {
+    color: rgb(153, 144, 131);
+    margin-left: 4px;
+    text-decoration: none;
+}
