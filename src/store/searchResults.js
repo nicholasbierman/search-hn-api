@@ -118,11 +118,20 @@ export const getSearchResultsByDate = (
   searchTerms,
   tags,
   author,
-  storyID
+  storyID,
+  created_at_i,
+  points,
+  num_comments,
+  page
 ) => async (dispatch) => {
+  let numericFiltersUrl = generateNumericFiltersUrl(
+    created_at_i,
+    points,
+    num_comments
+  );
   let tagsUrl = generateTagsUrl(tags, author, storyID);
   const response = await fetch(
-    `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}&${tagsUrl}`
+    `http://hn.algolia.com/api/v1/search_by_date?query=${searchTerms}&${tagsUrl}&${numericFiltersUrl}&page=${page}`
   );
   const data = await response.json();
   dispatch(storeSearchResults(data));
